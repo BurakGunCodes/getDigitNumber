@@ -19,32 +19,38 @@
     baseNumber ilk kez elimdeki sayımdan büyük olana kadar üs değerini artırıyorum.
     Zaten ilk kez büyük olduğu noktada kaç basamklı olduğunu anlıyoruz.
 
+    cout ile sayıları çıktı olarak verirken, sayılar daha düzgün görünsün diye iomanip kütüphanesini ekledim.
+    Böylece sayıların basamak sayısı farklı bile olsa ekranda düzenli görünecekler, kayma olmayacak.
+
+    time kütüphanesi ile rand fonksiyonunun her seferinde farklı değişken üretmesini sağladık.
+    Eğer kullanmasaydık rand() herzaman aynı değerleri verecekti. 
 
 */
 
+
+// DEFINE VARIABLES
 #define  OK     1
 #define  NOT_OK 0
 
 
-
+// INCLUDE LIBRARY
 #include <iostream>
 #include <cmath>
 #include <cstdlib>
 #include <time.h>
 #include <iomanip>
 
+// PUBLIC FUNCTIONS
 int getFigureNumber (long int myNumber);
 
 
 
-
+// DECLARE GLOBAL VARIABLES
 int state{NOT_OK};
 
 
 int main()
 {
-
-
 
     srand(time(NULL));
     
@@ -54,9 +60,8 @@ int main()
     for (int i = 1; i < 15; i++)
     {
         myNumber = rand();
-        myFigure = getFigureNumber(myNumber);
+        myFigure = getFigureNumber(myNumber*10000);
 
-        //std::cout << pow(10,2) << std::endl;
         std::cout<< "myNumber is " << std::setw(9) << myNumber << " myFigure is " <<  myFigure << std::endl;
     }
 
@@ -78,7 +83,7 @@ int getFigureNumber (long int myNumber)
     {
         baseNumber = pow(10,i);
  
-        if (  (baseNumber -1) >= myNumber  )
+        if ( (baseNumber -1) >= myNumber )
         {
             myFigure = i ;
             state    = OK ;
@@ -88,6 +93,7 @@ int getFigureNumber (long int myNumber)
         }
     }
     state = NOT_OK;
+
     return myFigure;
 
 }
