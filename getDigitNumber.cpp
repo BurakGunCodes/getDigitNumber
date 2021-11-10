@@ -41,8 +41,9 @@
 #include <iomanip>
 
 // PUBLIC FUNCTIONS
+int sumOfDigitFactorial(int myNumber, int digitNumber);
 int getFigureNumber (long int myNumber);
-
+int factorial(int number);
 
 
 // DECLARE GLOBAL VARIABLES
@@ -62,15 +63,26 @@ int main()
         myNumber = rand();
         myFigure = getFigureNumber(myNumber);
 
-        std::cout<< "myNumber is " << std::setw(9) << myNumber << " myFigure is " <<  myFigure << std::endl;
+        std::cout<< "myNumber is " << std::setw(7) << myNumber  << ", "
+                 << "myFigure is " <<   myFigure   <<    ", "   << "sum of digit fact " 
+                 << sumOfDigitFactorial(myNumber,myFigure)      << std::endl;
     }
-
-
 
 
 
 }
 
+int factorial(int number)
+{
+    int fact{1};
+    for( int i = 1; i<= number; i++)
+    {
+     fact = fact * i ;
+    }
+
+    return fact ;
+
+}
 
 int getFigureNumber (long int myNumber)
 {
@@ -96,4 +108,40 @@ int getFigureNumber (long int myNumber)
 
     return myFigure;
 
+}
+
+int sumOfDigitFactorial(int myNumber, int digitNumber)
+{
+
+    // i. basamaktaki sayi = [mod(10^i) - mod(i) ] / (10^i)  
+    int* ptr_array;
+  
+    ptr_array = (int*)calloc( digitNumber,sizeof(int) ); 
+
+    int base{0};
+
+    for(int i = 1 ; i<= digitNumber ; i++)
+    {
+        base = pow(10,i);
+
+        //i. digit = [mod(10^i) - mod(10^(i-1))] / 10^i
+        ptr_array[digitNumber - i] = ( ((int)myNumber % ( base ) - ((int)myNumber % (base/10) ) ) / (base/10) ) ; 
+    }
+
+    //for(int i = 0 ; i< digitNumber ; i++)
+    //{
+    //    std::cout << " " << ptr_array[i] ;
+    //}
+    // std::cout << std::endl;
+    
+    int sumOfFact{0};
+
+    for(int i = 0; i< digitNumber;  i++)
+    {
+        sumOfFact = sumOfFact + factorial( ptr_array[i] ) ;
+    }
+
+    free(ptr_array);
+
+    return sumOfFact ;
 }
