@@ -60,7 +60,7 @@ int main()
     for (int i = 1; i < 15; i++)
     {
         myNumber = rand();
-        myFigure = getFigureNumber(myNumber*10000);
+        myFigure = getFigureNumber(myNumber);
 
         std::cout<< "myNumber is " << std::setw(9) << myNumber << " myFigure is " <<  myFigure << std::endl;
     }
